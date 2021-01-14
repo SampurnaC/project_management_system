@@ -1,0 +1,32 @@
+-# %p#notice= notice
+-# %h1 Stories
+-# %table
+-#   %thead
+-#     %tr
+-#       %th Title
+-#       %th Description
+-#       %th{:colspan => "3"}
+-#   %tbody
+-#     - @stories.each do |story|
+-#       %tr
+-#         %td= link_to story.title, story_path(story)
+-#         -# %td= story.description
+-#         -# %td= link_to 'Show', story
+-#         -# %td= link_to 'Edit', edit_story_path(story)
+-#         -# %td= link_to 'Destroy', story, method: :delete, data: { confirm: 'Are you sure?' }
+-# -# %br/
+
+  
+
+.container-fluid
+  .row
+    - @stories.each do |story|
+      .col-md-4
+        .card
+          .row
+            .col-md-8
+              %h3
+                = link_to story.title, story_path(story), class: "card-body"    
+            .col-md-4
+              %h3
+                | Status
