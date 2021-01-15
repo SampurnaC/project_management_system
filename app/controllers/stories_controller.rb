@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   # GET /stories
   # GET /stories.json
   def index
-    @stories = current_user.stories
+    @stories = current_user.stories.order('created_at desc')
   end
 
   # GET /stories/1
@@ -70,6 +70,6 @@ class StoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def story_params
-      params.require(:story).permit(:title, :description, :user_id)
+      params.require(:story).permit(:title, :description, :status, :user_id)
     end
 end

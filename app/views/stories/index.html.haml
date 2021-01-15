@@ -18,15 +18,27 @@
 
   
 
-.container-fluid
+.container
   .row
     - @stories.each do |story|
       .col-md-4
         .card
           .row
             .col-md-8
-              %h3
-                = link_to story.title, story_path(story), class: "card-body"    
+              %h5
+                = link_to story.title, edit_story_path(story), class: "card-body"
+              = story.created_at.strftime("%d/%m/%Y-%I:%M %p")
             .col-md-4
-              %h3
-                | Status
+              %h5
+                - if story.status == "unstarted"
+                  Unstarted
+                - elsif story.status == "started"
+                  Started
+                - elsif story.status == "finish"
+                  Finished
+                - elsif story.status == "accepted"
+                  Accepted
+                - else
+                  Rejected
+        %br              
+  = link_to "Add New Story", new_story_path, class: "btn btn-primary"
