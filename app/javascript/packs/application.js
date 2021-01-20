@@ -10,6 +10,7 @@ require("channels")
 
 import "bootstrap"
 
+import 'controllers'
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -21,3 +22,4 @@ import "bootstrap"
 
 require("trix")
 require("@rails/actiontext")
+import "controllers"

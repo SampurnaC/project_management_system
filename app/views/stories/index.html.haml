@@ -1,44 +1,57 @@
--# %p#notice= notice
--# %h1 Stories
--# %table
--#   %thead
--#     %tr
--#       %th Title
--#       %th Description
--#       %th{:colspan => "3"}
--#   %tbody
--#     - @stories.each do |story|
--#       %tr
--#         %td= link_to story.title, story_path(story)
--#         -# %td= story.description
--#         -# %td= link_to 'Show', story
--#         -# %td= link_to 'Edit', edit_story_path(story)
--#         -# %td= link_to 'Destroy', story, method: :delete, data: { confirm: 'Are you sure?' }
--# -# %br/
-
-  
-
 .container
   .row
     - @stories.each do |story|
-      .col-md-4
+      .col-md-12
         .card
           .row
             .col-md-8
-              %h5
+              %h4
                 = link_to story.title, edit_story_path(story), class: "card-body"
-              = story.created_at.strftime("%d/%m/%Y-%I:%M %p")
-            .col-md-4
+                = link_to story.title, method: :delete, data: {reflex: "click->StoryReflex#destroy",id: story.id } do 
+                  [Delete]
+            .col-md-4  
+              - if story.status == "unstarted"
+                %h5 [Unstarted]
+              - elsif story.status == "started"
+                %h5 [started]
+              - elsif story.status == "finish"
+                %h5 [Finished]
+              - elsif story.status == "accepted"
+                %h5 [Accepted]
+              - elsif story.status == "completed"
+                %h5 [Completed]
+              - else
+                %h5 [Rejected]
               %h5
-                - if story.status == "unstarted"
-                  Unstarted
-                - elsif story.status == "started"
-                  Started
-                - elsif story.status == "finish"
-                  Finished
-                - elsif story.status == "accepted"
-                  Accepted
-                - else
-                  Rejected
-        %br              
+                Created By
+                = story.user.email
+          %br  
+          Created At
+          = story.created_at.strftime("%d/%m/%Y-%I:%M %p")
+          
+          %span
+          = button_to story_path(story), method: :get do 
+            = story.comments.count
+            Comments
+          %br
+          .buttons
+            = button_to "Unstart", "#", data: {reflex: "click->StoryReflex#unstart",id: story.id }
+            = button_to 'Start |',"#", data: {reflex: "click->StoryReflex#start",id: story.id }
+            = button_to 'Finish |',"#", data: {reflex: "click->StoryReflex#finish",id: story.id }
+            = button_to 'Accept |',"#", data: {reflex: "click->StoryReflex#accept",id: story.id }
+            = button_to 'Completed |',"#", data: {reflex: "click->StoryReflex#complete",id: story.id }
+            = button_to 'Rejected |',"#", data: {reflex: "click->StoryReflex#reject",id: story.id }
+                            
+        %br
   = link_to "Add New Story", new_story_path, class: "btn btn-primary"
+:css
+  .buttons {
+    display: flex;
+  }
+  .active {
+    margin: 0;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    background: #003d7b;
+    list-style: none;
+  }

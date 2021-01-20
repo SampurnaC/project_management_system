@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  resources :stories
   devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :stories do
+    # put :accept
+    # put :finish
+    # put :unstart
+    # put :start
+    # put :reject
+    # put :complete
+    resources :comments
+  end
+
+  # put "/stories/:id/accept", to: "stories#accept", as: "accepted_stories"
+  # put :accept
 end

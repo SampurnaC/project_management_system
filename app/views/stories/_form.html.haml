@@ -14,6 +14,7 @@
     = form.label :description
     = form.rich_text_area :description, class: "form-control"
   = form.collection_radio_buttons :status, Story.statuses, :first, :first, {:item_wrapper_class => 'inline'}, {:style =>"display:inline"}
+  = form.hidden_field :user_id, :value => current_user.id
   .actions
     = form.submit "Submit", class: "btn btn-primary"
 :css

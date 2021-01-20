@@ -1,0 +1,28 @@
+%p#notice= notice
+%p
+  %strong Title:
+  = @story.title
+%p
+  %strong Description:
+  = @story.description
+= link_to 'Edit', edit_story_path(@story)
+|
+= link_to 'Back', stories_path
+= form_for([@story, @story.comments.build], data: {controller: "comment", action: "submit->comment#create"}) do |form|
+  .form-group
+    = form.label :comment_body
+    = form.text_field :comment_body, class: "form-control"
+    - if current_user == @story.user_id
+      = form.hidden_field :user_id, :value => current_user.id
+    - else
+      = form.hidden_field :user_id, :value => @story.user_id
+
+  = form.submit "Add a Comment", class: "btn btn-primary"
+%ul
+  - @story.comments.each do |comment|
+    %li= comment.comment_body
+    = link_to "#", method: :delete, data: {reflex: "click->CommentReflex#destroy",id: comment.id } do 
+      [Delete]
+    %hr
+  %br
+

@@ -5,7 +5,8 @@ class StoriesController < ApplicationController
   # GET /stories
   # GET /stories.json
   def index
-    @stories = current_user.stories.order('created_at desc')
+    # @story = Story.find(params[:id])
+    @stories = Story.all.order('created_at desc')
   end
 
   # GET /stories/1
@@ -51,6 +52,8 @@ class StoriesController < ApplicationController
       end
     end
   end
+
+  
 
   # DELETE /stories/1
   # DELETE /stories/1.json
