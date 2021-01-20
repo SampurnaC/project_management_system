@@ -58,3 +58,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "stimulus_reflex", "~> 3.4"
+gem 'redis', '~> 4.0'
+
+gem "hiredis", "~> 0.6.3"
+
+gem "redis-session-store", "~> 0.11.3"
